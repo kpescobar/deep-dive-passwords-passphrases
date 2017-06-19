@@ -8,6 +8,7 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Properties;
+import java.util.Random;
 
 public class WordList {
 
@@ -31,7 +32,8 @@ public class WordList {
         System.out.println(warningMessage);
       }
       String[] wordList = getWordList(WORD_LIST_FILE);
-      System.out.println(Arrays.toString(wordList)); //FIXME - Get rid of this debugging.
+      String[] selectedWords = getRandomWords(phraseLength, wordList);
+      System.out.println(getJoinedString(selectedWords));
     } catch (NumberFormatException ex) {
       ex.printStackTrace();
       System.out.println(errorMessage);
@@ -65,9 +67,29 @@ public class WordList {
     Properties properties = new Properties();
     try (InputStream input = WordList.class.getClassLoader().getResourceAsStream(PROPERTIES_FILE)) {
       properties.load(input);
-      usageMessage = properties.getProperty("usage.messge");
+      usageMessage = properties.getProperty("usage.message");
       errorMessage = properties.getProperty("error.message");
       warningMessage = properties.getProperty("warning.message");
     }
   }
+  public static String[] getRandomWords(int numWords, String[] wordList) {
+    String[] selection = new String[numWords];
+    Random rng = new Random();
+    for (int i = 0; i < selection.length; i++) {
+      int selectedPosition = rng.nextInt(wordList.length);
+      selection[i] = wordList[selectedPosition];
+    }
+    return selection;
+  }
+  
+  private static String getJoinedString(String[] source) {
+    StringBuilder builder = new StringBuilder();
+    for (String item : source) {
+      builder.append(item);
+      builder.append(" ");
+    }
+    return builder.toString().trim();
+  }
+  
 }
+
