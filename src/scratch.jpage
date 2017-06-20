@@ -1,3 +1,3 @@
 edu.cnm.deepdive.passwords.passphrases.PasswordGenerator pg = 
-	new edu.cnm.deepdive.passwords.passphrases.PasswordGenerator(12, 24, false, false, true, false, true);
+	new edu.cnm.deepdive.passwords.passphrases.SecurePasswordGenerator(8, 12, true, false, false, false, true);
 System.out.println(pg.generate());
