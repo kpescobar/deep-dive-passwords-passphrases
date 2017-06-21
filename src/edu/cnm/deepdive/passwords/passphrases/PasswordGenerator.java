@@ -10,6 +10,9 @@ import java.util.Random;
 
 public class PasswordGenerator {
 
+  /** (Not cryptographically secure) pseudo-random number generator. */
+  protected Random rng = new Random();
+  
   private static final String UPPERCASE = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
   private static final String LOWERCASE = UPPERCASE.toLowerCase();
   private static final String NUMBERS = "0123456789";
@@ -19,7 +22,6 @@ public class PasswordGenerator {
   private char[] pool = null;
   private int minLength = 6;
   private int maxLength = 12;
-  protected Random rng = new Random();
   private boolean includeUpperCase = true;
   private boolean includeLowerCase = true;
   private boolean includeNumbers = true;
@@ -27,26 +29,41 @@ public class PasswordGenerator {
   private boolean excludeAmbiguous = true;
   
   /**
-   * Test rig for generating passwords.
+   * Not currently implemented.
+   * 
    * @param args Command-line parameters for password generation options.
    */
   public static void main(String[] args) {
-    // TODO Auto-generated method stub
 
   }
-  
+  /**
+   * 
+   */
   public PasswordGenerator() {
-    System.out.println("In default constructor");
     
   }
+  /**
+   * 
+   * @param minLength
+   * @param maxLength
+   */
   
   public PasswordGenerator(int minLength, int maxLength) {
     this();
-    System.out.println("In overloaded constructor");
     this.minLength = minLength;
     this.maxLength = maxLength;
   }
   
+  /**
+   * 
+   * @param minLength
+   * @param maxLength
+   * @param includeUpperCase
+   * @param includeLowerCase
+   * @param includeNumbers
+   * @param includePunctuation
+   * @param excludeAmbiguous
+   */
   public PasswordGenerator(int minLength, int maxLength, 
       boolean includeUpperCase, boolean includeLowerCase, 
       boolean includeNumbers, boolean includePunctuation, 
@@ -83,7 +100,10 @@ public class PasswordGenerator {
       pool = work.toCharArray();
     }
   }
-  
+  /**
+   * 
+   * @return
+   */
   public String generate() {
     setupPool();
     int passwordLength = minLength + rng.nextInt(maxLength - minLength + 1);
