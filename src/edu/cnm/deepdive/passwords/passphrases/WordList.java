@@ -10,18 +10,31 @@ import java.util.Arrays;
 import java.util.Properties;
 import java.util.Random;
 
+/**
+ * Wordlist and resources for a password/passphrase generator to utilize.
+ * 
+ * @author Kelly Escobar
+ *
+ */
 public class WordList {
-
+/** Default value for phrase length if none is specified. */
   public static final int MINIMUM_WORD_LENGTH = 5;
 
+  /** Import of wordlist file. */
   public static final String WORD_LIST_FILE = "resources/eff_large_wordlist.txt";
-
+  
   private static final String PROPERTIES_FILE = "resources/text.properties";
 
   private static String usageMessage;
   private static String errorMessage;
   private static String warningMessage;
 
+  /**
+   * Reads and prints collection of words from wordlist. Number of words selected is specified on the command line.
+   * Refer to {@link #MINIMUM_WORD_LENGTH MINIMUM_WORD_LENGTH} if no length is specified.
+   * 
+   * @param args
+   */
   public static void main(String[] args) {
     try {
       loadResources();
@@ -48,7 +61,13 @@ public class WordList {
       System.exit(1);
     }
   }
-
+/**
+ * Reads wordlist file and returns array of words. Dice numbers for words not included in return value.
+ * 
+ * @param listPath
+ * @return
+ * @throws IOException
+ */
   public static String[] getWordList(String listPath) 
       throws IOException { 
     try (BufferedReader reader 
@@ -72,6 +91,13 @@ public class WordList {
       warningMessage = properties.getProperty("warning.message");
     }
   }
+  /**
+   * Creates and returns words for a passphrase.
+   * 
+   * @param numWords
+   * @param wordList
+   * @return
+   */
   public static String[] getRandomWords(int numWords, String[] wordList) {
     String[] selection = new String[numWords];
     Random rng = new Random();
@@ -81,7 +107,7 @@ public class WordList {
     }
     return selection;
   }
-  
+ 
   private static String getJoinedString(String[] source) {
     StringBuilder builder = new StringBuilder();
     for (String item : source) {
