@@ -37,12 +37,14 @@ public class PasswordGenerator {
 
   }
   /**
-   * 
+   * Initialize with default value.
    */
   public PasswordGenerator() {
     
   }
+  
   /**
+   * Initialize minimum and maximum length of password.
    * 
    * @param minLength
    * @param maxLength
@@ -55,6 +57,7 @@ public class PasswordGenerator {
   }
   
   /**
+   * Initializes generator with character pool excludes a small amount of ambiguous characters.
    * 
    * @param minLength
    * @param maxLength
@@ -62,14 +65,13 @@ public class PasswordGenerator {
    * @param includeLowerCase
    * @param includeNumbers
    * @param includePunctuation
-   * @param excludeAmbiguous
+   * @param excludeAmbiguous excludes the following characters: O, l (Uppercase O and Lowercase l)
    */
   public PasswordGenerator(int minLength, int maxLength, 
       boolean includeUpperCase, boolean includeLowerCase, 
       boolean includeNumbers, boolean includePunctuation, 
       boolean excludeAmbiguous) {
     this(minLength, maxLength);
-    System.out.println("In another overloaded constructor");
     this.includeUpperCase = includeUpperCase;
     this.includeLowerCase = includeLowerCase;
     this.includeNumbers = includeNumbers;
@@ -101,6 +103,7 @@ public class PasswordGenerator {
     }
   }
   /**
+   * Randomly selects a password and sets the length within the set parameters.
    * 
    * @return
    */
@@ -117,6 +120,8 @@ public class PasswordGenerator {
 
 
   /**
+   * Get maximum password length.
+   * 
    * @return the maxLength
    */
   public int getMaxLength() {
@@ -125,7 +130,9 @@ public class PasswordGenerator {
 
 
   /**
-   * @param maxLength the maxLength to set
+   * Set maximum password length.
+   * 
+   * @param maximum password length
    */
   protected void setMaxLength(int maxLength) {
     this.maxLength = maxLength;
@@ -133,6 +140,8 @@ public class PasswordGenerator {
 
 
   /**
+   * Get minimum password length.
+   * 
    * @return the minLength
    */
   public int getMinLength() {
@@ -141,7 +150,9 @@ public class PasswordGenerator {
 
 
   /**
-   * @param minLength the minLength to set
+   * Set minimum password length.
+   * 
+   * @param minimum password length
    */
   protected void setMinLength(int minLength) {
     this.minLength = minLength;
