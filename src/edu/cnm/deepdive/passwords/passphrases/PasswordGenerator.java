@@ -132,7 +132,7 @@ public class PasswordGenerator {
   /**
    * Set maximum password length.
    * 
-   * @param maximum password length
+   * @param maxLength maximum password length
    */
   protected void setMaxLength(int maxLength) {
     this.maxLength = maxLength;
@@ -152,7 +152,7 @@ public class PasswordGenerator {
   /**
    * Set minimum password length.
    * 
-   * @param minimum password length
+   * @param minLength minimum password length
    */
   protected void setMinLength(int minLength) {
     this.minLength = minLength;
