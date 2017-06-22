@@ -3,6 +3,9 @@
  */
 package edu.cnm.deepdive.passwords.passphrases;
 
+import java.util.Arrays;
+
+import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
@@ -27,37 +30,41 @@ public class Guard {
    * @param args   Command line arguments, specifying generation options. 
    */
   public static void main(String[] args) {
-    Option[] options = getOptions(args);
-    String artifact = generateArtifact(options);
+    CommandLine cmdLine = getOptions(args);
+    String artifact = generateArtifact(cmdLine);
     emitArtifact(artifact);
   }
   
-  static Option[] getOptions(String[] args) 
-      throws ParseException {
+  static CommandLine getOptions(String[] args) {
     try {
-      Option lengthOption = Option.builder("L").argName("length")
+      Option lengthOption = Option.builder("k").argName("length")
                                                .hasArg()
                                                .longOpt("length")
                                                .numberOfArgs(1)
+                                               .type(Integer.class)
                                                .build();
       Option delimiterOption = Option.builder("d").argName("delimiter")
                                                   .hasArg()
                                                   .longOpt("delimiter")
                                                   .numberOfArgs(1)
                                                   .optionalArg(true)
+                                                  .type(String.class)
                                                   .build();
       Option wordListOption = Option.builder("w").argName("path-to-list-file")
                                                  .hasArg()
                                                  .longOpt("word-list")
                                                  .numberOfArgs(1)
+                                                 .type(String.class)
                                                  .build();
       Options opts = new Options().addOption(lengthOption)
                                   .addOption(delimiterOption)
                                   .addOption(wordListOption);
 
       DefaultParser parser = new DefaultParser();
-      parser.parse(opts, args);
-      return parser.parse(opts, args).getOptions();      
+      CommandLine cmdLine = parser.parse(opts, args);
+      Object test = cmdLine.getParsedOptionValue("k"); //FIXME - Debug Statement
+      return cmdLine;
+      
     } catch (ParseException ex) {
       //TODO Handle this exception with a usage display.
       return null;
@@ -66,7 +73,7 @@ public class Guard {
   
   }
   
-  static String generateArtifact(Option[] options) {
+  static String generateArtifact(CommandLine cmdLine) {
     return null; //FIXME
   }
   
