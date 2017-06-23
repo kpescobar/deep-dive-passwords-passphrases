@@ -72,6 +72,10 @@ public class Guard {
       Option includeAmbigOption = Option.builder("a").longOpt("exclude-ambiguous")
                                                        .hasArg(false)
                                                        .build();
+      Option modeOption = Option.builder("m").longOpt("password-mode")
+                                                 .hasArg(false)
+                                                 .build();
+
       
       Options opts = new Options().addOption(lengthOption)
                                   .addOption(delimiterOption)
@@ -80,7 +84,8 @@ public class Guard {
                                   .addOption(excludeLowerOption)
                                   .addOption(excludeDigitsOption)
                                   .addOption(excludePunctOption)
-                                  .addOption(includeAmbigOption);
+                                  .addOption(includeAmbigOption)
+                                  .addOption(modeOption);
       
       DefaultParser parser = new DefaultParser();
       HashMap<String, Object> map = new HashMap<>();
@@ -100,10 +105,17 @@ public class Guard {
   }
   
   static String generateArtifact(HashMap<String, Object> map) {
-    return null; //FIXME
+    if (map.containsKey("m")) {
+      PasswordGenerator gen = new SecurePasswordGenerator();
+      // TODO Set fields for all specified options.
+      return gen.generate();
+    }
+    return null;
   }
   
   static void emitArtifact(String artifact) {
+    // TODO Make this smarter.
+    System.out.println(artifact);
   }
 
 }

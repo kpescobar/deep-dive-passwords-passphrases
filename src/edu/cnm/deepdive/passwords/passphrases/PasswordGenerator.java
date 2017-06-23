@@ -10,32 +10,27 @@ import java.util.Random;
 
 public class PasswordGenerator {
 
-  /** (Not cryptographically secure) pseudo-random number generator. */
-  protected Random rng = new Random();
+  /** Punctuation characters that may optionally be included in the password. */
+  public static final String PUNCTUATION = "!@#$%&*,.";
   
+  /** Ambiguous characters that may optionally be excluded from the password. */
+  public static final String AMBIGUOUS = "[Ol]";
+
   private static final String UPPERCASE = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
   private static final String LOWERCASE = UPPERCASE.toLowerCase();
   private static final String NUMBERS = "0123456789";
-  private static final String PUNCTUATION = "!@#$%&*,.";
-  private static final String AMBIGUOUS = "[Ol]";
-  
+ 
+  private Random rng = null;
   private char[] pool = null;
   private int minLength = 6;
   private int maxLength = 12;
-  private boolean includeUpperCase = true;
-  private boolean includeLowerCase = true;
-  private boolean includeNumbers = true;
-  private boolean includePunctuation = false;
-  private boolean excludeAmbiguous = true;
+  private boolean upperCaseIncluded = true;
+  private boolean lowerCaseIncluded = true;
+  private boolean numbersIncluded = true;
+  private boolean punctuationIncluded = true;
+  private boolean ambiguousExcluded = true;
+  private String delimiter = "";
   
-  /**
-   * Not currently implemented.
-   * 
-   * @param args Command-line parameters for password generation options.
-   */
-  public static void main(String[] args) {
-
-  }
   /**
    * Initialize with default value.
    */
@@ -43,65 +38,38 @@ public class PasswordGenerator {
     
   }
   
-  /**
-   * Initialize minimum and maximum length of password.
-   * 
-   * @param minLength
-   * @param maxLength
-   */
-  
-  public PasswordGenerator(int minLength, int maxLength) {
-    this();
-    this.minLength = minLength;
-    this.maxLength = maxLength;
-  }
-  
-  /**
-   * Initializes generator with character pool excludes a small amount of ambiguous characters.
-   * 
-   * @param minLength
-   * @param maxLength
-   * @param includeUpperCase
-   * @param includeLowerCase
-   * @param includeNumbers
-   * @param includePunctuation
-   * @param excludeAmbiguous excludes the following characters: O, l (Uppercase O and Lowercase l)
-   */
-  public PasswordGenerator(int minLength, int maxLength, 
-      boolean includeUpperCase, boolean includeLowerCase, 
-      boolean includeNumbers, boolean includePunctuation, 
-      boolean excludeAmbiguous) {
-    this(minLength, maxLength);
-    this.includeUpperCase = includeUpperCase;
-    this.includeLowerCase = includeLowerCase;
-    this.includeNumbers = includeNumbers;
-    this.includePunctuation = includePunctuation;
-    this.excludeAmbiguous = excludeAmbiguous;
-    
-  }
-  
   private void setupPool() {
     if (pool == null) {
       StringBuilder builder = new StringBuilder();
-      if (includeLowerCase) {
+      if (isLowerCaseIncluded()) {
         builder.append(LOWERCASE);
       }
-      if (includeUpperCase) {
+      if (isUpperCaseIncluded()) {
         builder.append(UPPERCASE);
       }
-      if (includeNumbers) {
+      if (isNumbersIncluded()) {
         builder.append(NUMBERS);
       }
-      if (includePunctuation) {
+      if (isPunctuationIncluded()) {
         builder.append(PUNCTUATION);
       }
       String work = builder.toString();
-      if (excludeAmbiguous) {
+      if (isAmbiguousExcluded()) {
         work.replaceAll(AMBIGUOUS, "");
       }
       pool = work.toCharArray();
     }
   }
+  
+  /**
+   * 
+   */
+  protected void setupRng() {
+    if (rng == null){
+      rng = new Random();
+    }
+  }
+  
   /**
    * Randomly selects a password and sets the length within the set parameters.
    * 
@@ -109,10 +77,11 @@ public class PasswordGenerator {
    */
   public String generate() {
     setupPool();
-    int passwordLength = minLength + rng.nextInt(maxLength - minLength + 1);
+    setupRng();
+    int passwordLength = minLength + getRng().nextInt(maxLength - minLength + 1);
     StringBuilder builder = new StringBuilder();
     for (int i = 0; i < passwordLength; i++) {
-      char selection = pool[rng.nextInt(pool.length)];
+      char selection = pool[getRng().nextInt(pool.length)];
       builder.append(selection);
     }
     return builder.toString();
@@ -156,6 +125,94 @@ public class PasswordGenerator {
    */
   protected void setMinLength(int minLength) {
     this.minLength = minLength;
+  }
+  /**
+   * @return the upperCaseIncluded
+   */
+  public boolean isUpperCaseIncluded() {
+    return upperCaseIncluded;
+  }
+  /**
+   * @param upperCaseIncluded the upperCaseIncluded to set
+   */
+  public void setUpperCaseIncluded(boolean upperCaseIncluded) {
+    this.upperCaseIncluded = upperCaseIncluded;
+  }
+  /**
+   * @return the lowerCaseIncluded
+   */
+  public boolean isLowerCaseIncluded() {
+    return lowerCaseIncluded;
+  }
+  /**
+   * @param lowerCaseIncluded the lowerCaseIncluded to set
+   */
+  public void setLowerCaseIncluded(boolean lowerCaseIncluded) {
+    this.lowerCaseIncluded = lowerCaseIncluded;
+  }
+  /**
+   * @return the numbersIncluded
+   */
+  public boolean isNumbersIncluded() {
+    return numbersIncluded;
+  }
+  /**
+   * @param numbersIncluded the numbersIncluded to set
+   */
+  public void setNumbersIncluded(boolean numbersIncluded) {
+    this.numbersIncluded = numbersIncluded;
+  }
+  /**
+   * @return the punctuationIncluded
+   */
+  public boolean isPunctuationIncluded() {
+    return punctuationIncluded;
+  }
+  /**
+   * @param punctuationIncluded the punctuationIncluded to set
+   */
+  public void setPunctuationIncluded(boolean punctuationIncluded) {
+    this.punctuationIncluded = punctuationIncluded;
+  }
+  
+  /**
+   * @return the ambiguousExcluded
+   */
+  public boolean isAmbiguousExcluded() {
+    return ambiguousExcluded;
+  }
+  
+  /**
+   * @param ambiguousExcluded the ambiguousExcluded to set
+   */
+  public void setAmbiguousExcluded(boolean ambiguousExcluded) {
+    this.ambiguousExcluded = ambiguousExcluded;
+  }
+  
+  /**
+   * @return the delimiter
+   */
+  public String getDelimiter() {
+    return delimiter;
+  }
+  
+  /**
+   * @param delimiter the delimiter to set
+   */
+  public void setDelimiter(String delimiter) {
+    this.delimiter = delimiter;
+  }
+  /**
+   * @return the rng
+   */
+  protected Random getRng() {
+    return rng;
+  }
+  /**
+   * @param rng the rng to set
+   */
+  protected void setRng(Random rng) {
+    this.rng = rng;
   }
 
 }

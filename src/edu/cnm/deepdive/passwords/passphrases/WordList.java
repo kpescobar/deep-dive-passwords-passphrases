@@ -103,6 +103,7 @@ public class WordList {
       int selectedPosition = rng.nextInt(wordList.length);
       selection[i] = wordList[selectedPosition];
     }
+    
     return selection;
   }
  
