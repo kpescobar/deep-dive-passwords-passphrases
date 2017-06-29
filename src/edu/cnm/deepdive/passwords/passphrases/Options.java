@@ -17,7 +17,8 @@ import org.apache.commons.cli.ParseException;
  *
  */
 public class Options {
-  
+  // TODO Create properties file to call from.
+  // TODO Include warning messages.
   private static final String OPTIONS_DESCRIPTION_BUNDLE = "resources/options";
   
   private static final String HELP_OPTION_KEY = "help.option";
@@ -109,7 +110,8 @@ public class Options {
         map.put(opt,  cmdLine.getParsedOptionValue(opt));
       }
       return map;
-      
+      // TODO Add invalid options exceptions... ie. password mode+no delimiter, password mode+no word list.
+      // TODO Add extreme value warning messages.
     } catch (ParseException ex) {
       //TODO Handle this exception with a usage display.
       return null;

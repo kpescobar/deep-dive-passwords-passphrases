@@ -96,6 +96,8 @@ public class WordList {
    * @param wordList
    * @return
    */
+  
+  // TODO Set length/build phrase with delimiter.
   public static String[] getRandomWords(int numWords, String[] wordList) {
     String[] selection = new String[numWords];
     Random rng = new Random();
