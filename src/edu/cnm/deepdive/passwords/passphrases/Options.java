@@ -4,13 +4,16 @@
 package edu.cnm.deepdive.passwords.passphrases;
 
 import java.util.HashMap;
+import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.HelpFormatter;
+import org.apache.commons.cli.MissingArgumentException;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.ParseException;
+import org.apache.commons.cli.UnrecognizedOptionException;
 
 /**
  * @author Kelly Escobar
@@ -19,7 +22,14 @@ import org.apache.commons.cli.ParseException;
 public class Options {
   // TODO Create properties file to call from.
   // TODO Include warning messages.
+  public static final String JAR_FILE_NAME = "guard.jar";
+  
+  private static final String MESSAGES_BUNDLE = "resources/messages";
+  
+  private static final String MISSING_ARGUMENT_KEY = "error.missingargument.message";
+  
   private static final String OPTIONS_DESCRIPTION_BUNDLE = "resources/options";
+  private static final String FATAL_MESSAGE = "Not able to load messages bundle.";
   
   private static final String HELP_OPTION_KEY = "help.option";
   private static final String LENGTH_OPTION_KEY = "length.option";
@@ -31,8 +41,18 @@ public class Options {
   private static final String DIGITS_OPTION_KEY = "exclude-digits.option";
   private static final String PUNCTUATION_OPTION_KEY = "exclude-punctuation.option";
   private static final String AMBIGUOUS_OPTION_KEY = "include-ambiguous.option";
-
+  private static String usageMessage = "java -jar %s [options]";
+  
   static HashMap<String, Object> getOptions(String[] args) {
+    ResourceBundle messageBundle = null;
+    org.apache.commons.cli.Options opts = null;
+    try {
+      messageBundle = ResourceBundle.getBundle(MESSAGES_BUNDLE);
+    } catch (MissingResourceException ex) {
+      System.out.println(FATAL_MESSAGE);
+      return null;
+    }
+        
     try {
       ResourceBundle bundle = ResourceBundle.getBundle(OPTIONS_DESCRIPTION_BUNDLE);
       Option lengthOption = Option.builder("L").argName("length")
@@ -87,8 +107,7 @@ public class Options {
                                              .build();
 
       
-      org.apache.commons.cli.Options opts 
-          = new org.apache.commons.cli.Options().addOption(lengthOption)
+      opts = new org.apache.commons.cli.Options().addOption(lengthOption)
                                                 .addOption(helpOption)
                                                 .addOption(delimiterOption)
                                                 .addOption(wordListOption)
@@ -102,22 +121,56 @@ public class Options {
       DefaultParser parser = new DefaultParser();
       HashMap<String, Object> map = new HashMap<>();
       CommandLine cmdLine = parser.parse(opts, args);
-      if (cmdLine.hasOption('?')) {
-        new HelpFormatter().printHelp("These are the options", opts); // FIXME Take message from resources.
-      }
       for (Option option : cmdLine.getOptions()) {
         String opt = option.getOpt();
-        map.put(opt,  cmdLine.getParsedOptionValue(opt));
+        map.put(opt, cmdLine.getParsedOptionValue(opt));
+        // TODO Perform additional validation on option values, including checking for extreme values.
+        // TODO check for option conflicts.
+      }
+      if (cmdLine.hasOption('?')) {
+        display(null, usageMessage, opts);
       }
       return map;
-      // TODO Add invalid options exceptions... ie. password mode+no delimiter, password mode+no word list.
-      // TODO Add extreme value warning messages.
+    } catch (MissingArgumentException ex) {
+      Option missing = ex.getOption();
+      String optName = missing.getOpt();
+      String message = messageBundle.getString(MISSING_ARGUMENT_KEY); 
+      message = String.format(message, optName);
+      display(message, usageMessage, opts);  
+      return null;
+    } catch (UnrecognizedOptionException ex) {
+      // Display error and usage.
+      return null;
     } catch (ParseException ex) {
       //TODO Handle this exception with a usage display.
       return null;
+    } catch (MissingResourceException ex) {
+      //TODO Display error message.
+      return null;
     }
-      
+  } 
   
+  private static void display(String message, String usage, org.apache.commons.cli.Options opts) {
+    if (message != null) {
+      System.out.println(message);
+    }
+    new HelpFormatter().printHelp(usage, opts);
+
   }
   
+  
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
