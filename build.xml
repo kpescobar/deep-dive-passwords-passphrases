@@ -6,10 +6,14 @@
 	<property name="class.dir" location="./bin" />
 	<property name="javadoc.dir" location="./doc" />
 	<property name="dist.dir" location="./dist" />
+	<property name="dist.lib.subdir" value="lib" />
 	<property name="dist.jar" value="guard.jar" />
 	<property name="cli.lib.dir" location="../../libraries/commons-cli-1.4" />
 	<property name="cli.lib.jar" value="commons-cli-1.4.jar" />
 	<property name="cli.lib" location="${cli.lib.dir}/${cli.lib.jar}" />
+	<property name="cli.lib.license" value="LICENSE.txt" />
+	<property name="cli.license" location="${cli.lib.dir}/${cli.lib.license}" />
+	
 	
 	<target name="build" depends="compile, javadoc, jar" />
 	
@@ -29,19 +33,32 @@
 			classpath="${cli.lib}" />
 	</target>
 	
-	<target name="jar" depends="-create.dist.dir">
+	<target name="jar" depends="-create.dist.dir, compile, javadoc">
 		<jar destfile="${dist.dir}/${dist.jar}">
+			
 			<fileset dir="${class.dir}">
 				<include name="**/*.class" />
 			</fileset>
+			
 			<fileset dir="${source.dir}">
 				<include name="resources/**/*.properties" />
 			</fileset>
+			
+			<fileset dir="${javadoc.dir}/..">
+				<include name="doc/**/*" />
+			</fileset>
+			
 			<manifest>
 				<attribute name="Main-class" value="edu.cnm.deepdive.passwords.passphrases.Guard" />
-				<attribute name="Class-path" value=". lib/${cli.lib.jar}" />
+				<attribute name="Class-path" value=". ${dist.lib.subdir}/${cli.lib.jar}" />
 			</manifest>
 		</jar>
+		<copy todir="${dist.dir}/${dist.lib.subdir}">
+			<fileset dir="${cli.lib.dir}">
+				<include name="${cli.lib.jar}" />
+				<include name="${cli.lib.license}" />
+			</fileset>
+		</copy>
 	</target>
 
 	<target name="-create.class.dir">
