@@ -15,13 +15,13 @@ import java.util.ResourceBundle;
  */
 public class PassphraseGenerator {
   
-  /** */
+  /** Word list filed used as the default if an alternative is not specified. */
   public static final String DEFAULT_WORD_LIST = "resources/wordlist";
   
-  /** */
+  /** Default delimiter if none is specified. */
   public static final String DEFAULT_DELIMITER = " ";
   
-  /** */
+  /** Default length of passphrase if none is specified.*/
   public static final int DEFAULT_LENGTH = 6;
   
   private String wordList = DEFAULT_WORD_LIST;
@@ -31,14 +31,14 @@ public class PassphraseGenerator {
   private ArrayList<String> pool = null;
   
   /**
-   * 
+   * Creates an instance of the Passphrase Generator.
    */
   public PassphraseGenerator() {
     super(); 
   }
   
   /**
-   * 
+   * Sets up Array List to hold keys of specified word list.
    */
   protected void setupPool() {
     ResourceBundle bundle = ResourceBundle.getBundle(wordList);
@@ -52,14 +52,14 @@ public class PassphraseGenerator {
   }
   
   /**
-   * 
+   * Set up a Secure rng.
    */
   protected void setupRng() {
     rng = new SecureRandom();
   }
   
   /**
-   * 
+   * Returns generated passphrase with set delimiters.
    * @return
    */
   public String generate() {
@@ -70,10 +70,12 @@ public class PassphraseGenerator {
       setupRng();
     }
     StringBuilder builder = new StringBuilder();
-    for (int i = 0; i < length; i++) {
-      String word = pool.get(rng.nextInt(pool.size()));
-      builder.append(word);
+    String word = pool.get(rng.nextInt(pool.size()));
+    builder.append(word);
+    for (int i = 0; i < length - 1; i++) {
+      word = pool.get(rng.nextInt(pool.size()));
       builder.append(delimiter);
+      builder.append(word);
     }
     return builder.toString().trim();
   }

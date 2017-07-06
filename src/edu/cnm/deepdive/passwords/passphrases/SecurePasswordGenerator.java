@@ -12,6 +12,9 @@ public class SecurePasswordGenerator extends PasswordGenerator {
     super();
     }
  
+  /**
+   * Uses an instance of Secure Random instead of Random.
+   */
   @Override
   protected void setupRng() {
     try {

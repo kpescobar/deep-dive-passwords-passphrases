@@ -64,7 +64,7 @@ public class PasswordGenerator {
   }
   
   /**
-   * 
+   * Initiates Random number generator.
    */
   protected void setupRng() {
     if (rng == null){
@@ -128,50 +128,63 @@ public class PasswordGenerator {
   protected void setMinLength(int minLength) {
     this.minLength = minLength;
   }
+  
   /**
+   * 
    * @return the upperCaseIncluded
    */
   public boolean isUpperCaseIncluded() {
     return upperCaseIncluded;
   }
+  
   /**
-   * @param upperCaseIncluded the upperCaseIncluded to set
+   * Set upper case to be included.
+   * @param upperCaseIncluded
    */
   public void setUpperCaseIncluded(boolean upperCaseIncluded) {
     this.upperCaseIncluded = upperCaseIncluded;
   }
+  
   /**
    * @return the lowerCaseIncluded
    */
   public boolean isLowerCaseIncluded() {
     return lowerCaseIncluded;
   }
+  
   /**
-   * @param lowerCaseIncluded the lowerCaseIncluded to set
+   * Set lower case to be included.
+   * @param lowerCaseIncluded
    */
   public void setLowerCaseIncluded(boolean lowerCaseIncluded) {
     this.lowerCaseIncluded = lowerCaseIncluded;
   }
+  
   /**
    * @return the numbersIncluded
    */
   public boolean isNumbersIncluded() {
     return numbersIncluded;
   }
+  
   /**
-   * @param numbersIncluded the numbersIncluded to set
+   * Set numbers to be included.
+   * @param numbersIncluded
    */
   public void setNumbersIncluded(boolean numbersIncluded) {
     this.numbersIncluded = numbersIncluded;
   }
+  
   /**
    * @return the punctuationIncluded
    */
   public boolean isPunctuationIncluded() {
     return punctuationIncluded;
   }
+  
   /**
-   * @param punctuationIncluded the punctuationIncluded to set
+   * Set punctuation to be included.
+   * @param punctuationIncluded
    */
   public void setPunctuationIncluded(boolean punctuationIncluded) {
     this.punctuationIncluded = punctuationIncluded;
@@ -185,7 +198,8 @@ public class PasswordGenerator {
   }
   
   /**
-   * @param ambiguousExcluded the ambiguousExcluded to set
+   * Set ambiguous characters to be excluded.
+   * @param ambiguousExcluded
    */
   public void setAmbiguousExcluded(boolean ambiguousExcluded) {
     this.ambiguousExcluded = ambiguousExcluded;
@@ -199,7 +213,8 @@ public class PasswordGenerator {
   }
   
   /**
-   * @param delimiter the delimiter to set
+   * Set the specified/default delimiter.
+   * @param delimiter
    */
   public void setDelimiter(String delimiter) {
     this.delimiter = delimiter;
@@ -211,7 +226,8 @@ public class PasswordGenerator {
     return rng;
   }
   /**
-   * @param rng the rng to set
+   * Set random number generator.
+   * @param rng
    */
   protected void setRng(Random rng) {
     this.rng = rng;
