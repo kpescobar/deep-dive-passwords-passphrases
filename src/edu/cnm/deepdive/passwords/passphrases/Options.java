@@ -19,6 +19,7 @@ import org.apache.commons.cli.UnrecognizedOptionException;
 
 /**
  * @author Kelly Escobar
+ * @version 1.2
  *
  */
 public class Options {
@@ -29,9 +30,6 @@ public class Options {
   public static final int MAXIMUM_RECOMMENDED_PASSWORD_LENGTH = 16;
 
   public static final int MINIMUM_RECOMMENDED_PASSWORD_LENGTH = 8;
-
-  // TODO Create properties file to call from.
-  // TODO Include warning messages.
   public static final String JAR_FILE_NAME = "guard.jar";
   
   private static final String INVALID_DELIMITERS_REGEX = "^.*[<>&|*?^]+.*$";

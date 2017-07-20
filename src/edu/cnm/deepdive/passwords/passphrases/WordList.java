@@ -31,7 +31,7 @@ public class WordList {
    * Reads and prints collection of words from wordlist. Number of words selected is specified on the command line.
    * Refer to {@link #MINIMUM_WORD_LENGTH MINIMUM_WORD_LENGTH} if no length is specified.
    * 
-   * @param args
+   * @param args default/given word list.
    */
   public static void main(String[] args) {
     try {
@@ -62,9 +62,9 @@ public class WordList {
 /**
  * Reads wordlist file and returns array of words. Dice numbers for words not included in return value.
  * 
- * @param listPath
- * @return
- * @throws IOException
+ * @param listPath to default/given word list.
+ * @return word list
+ * @throws IOException if word list is not found.
  */
   public static String[] getWordList(String listPath) 
       throws IOException { 
@@ -92,9 +92,9 @@ public class WordList {
   /**
    * Creates and returns words for a passphrase.
    * 
-   * @param numWords
-   * @param wordList
-   * @return
+   * @param numWords for passphrase
+   * @param wordList default/given word list
+   * @return generated passphrase
    */
   
   // TODO Set length/build phrase with delimiter.

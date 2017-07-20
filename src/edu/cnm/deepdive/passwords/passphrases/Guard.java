@@ -32,9 +32,7 @@ public class Guard {
     }
   }
   
-  // TODO Set fields for all specified options.
-  // TODO Set length (min/max) to option value.
-  // TODO Select/combine/print string of characters for user.
+
   static String generateArtifact(HashMap<String, Object> map) {
     if (map.containsKey("m")) {
       PasswordGenerator gen = new SecurePasswordGenerator();

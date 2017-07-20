@@ -60,7 +60,7 @@ public class PassphraseGenerator {
   
   /**
    * Returns generated passphrase with set delimiters.
-   * @return
+   * @return generated passsphrase.
    */
   public String generate() {
     if (pool == null) {
@@ -81,6 +81,7 @@ public class PassphraseGenerator {
   }
 
   /**
+   * Return default word list if an alternative is not specified.
    * @return the wordList
    */
   public String getWordList() {
@@ -88,6 +89,7 @@ public class PassphraseGenerator {
   }
   
   /**
+   * Set given/default word list.
    * @param wordList the wordList to set
    */
   public void setWordList(String wordList) {
@@ -95,6 +97,7 @@ public class PassphraseGenerator {
   }
   
   /**
+   * Get the delimiter.
    * @return the delimiter
    */
   public String getDelimiter() {
@@ -102,13 +105,15 @@ public class PassphraseGenerator {
   }
   
   /**
-   * @param delimiter the delimiter to set
+   * Sets the delimiter.
+   * @param delimiter set delimiter. 
    */
   public void setDelimiter(String delimiter) {
     this.delimiter = delimiter;
   }
   
   /**
+   * Gets length.
    * @return the length
    */
   public int getLength() {
@@ -116,13 +121,15 @@ public class PassphraseGenerator {
   }
   
   /**
-   * @param length the length to set
+   * Sets passphrase length.
+   * @param length sets length.
    */
   public void setLength(int length) {
     this.length = length;
   }
 
   /**
+   * Gets random number generator.
    * @return the rng
    */
   protected Random getRng() {
@@ -130,7 +137,8 @@ public class PassphraseGenerator {
   }
 
   /**
-   * @param rng the rng to set
+   * Sets random number generator.
+   * @param rng sets rng.
    */
   protected void setRng(Random rng) {
     this.rng = rng;

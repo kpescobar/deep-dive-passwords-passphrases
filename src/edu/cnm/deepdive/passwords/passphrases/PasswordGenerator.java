@@ -10,6 +10,7 @@ import java.util.Random;
 
 public class PasswordGenerator {
 
+ 
   public static final int DEFAULT_PASSWORD_LENGTH = 12;
   
   /** Punctuation characters that may optionally be included in the password. */
@@ -75,7 +76,7 @@ public class PasswordGenerator {
   /**
    * Randomly selects a password and sets the length within the set parameters.
    * 
-   * @return
+   * @return generated password.
    */
   public String generate() {
     setupPool();
@@ -139,13 +140,14 @@ public class PasswordGenerator {
   
   /**
    * Set upper case to be included.
-   * @param upperCaseIncluded
+   * @param upperCaseIncluded set
    */
   public void setUpperCaseIncluded(boolean upperCaseIncluded) {
     this.upperCaseIncluded = upperCaseIncluded;
   }
   
   /**
+   * Returns if lower case is included.
    * @return the lowerCaseIncluded
    */
   public boolean isLowerCaseIncluded() {
@@ -154,13 +156,14 @@ public class PasswordGenerator {
   
   /**
    * Set lower case to be included.
-   * @param lowerCaseIncluded
+   * @param lowerCaseIncluded sets lci.
    */
   public void setLowerCaseIncluded(boolean lowerCaseIncluded) {
     this.lowerCaseIncluded = lowerCaseIncluded;
   }
   
   /**
+   * Returns if numbers are included in options.
    * @return the numbersIncluded
    */
   public boolean isNumbersIncluded() {
@@ -169,13 +172,14 @@ public class PasswordGenerator {
   
   /**
    * Set numbers to be included.
-   * @param numbersIncluded
+   * @param numbersIncluded sets numbers included.
    */
   public void setNumbersIncluded(boolean numbersIncluded) {
     this.numbersIncluded = numbersIncluded;
   }
   
   /**
+   * Returns if punctuation is included in options.
    * @return the punctuationIncluded
    */
   public boolean isPunctuationIncluded() {
@@ -184,13 +188,14 @@ public class PasswordGenerator {
   
   /**
    * Set punctuation to be included.
-   * @param punctuationIncluded
+   * @param punctuationIncluded sets punctuation.
    */
   public void setPunctuationIncluded(boolean punctuationIncluded) {
     this.punctuationIncluded = punctuationIncluded;
   }
   
   /**
+   * Returns if ambiquous characters are included.
    * @return the ambiguousExcluded
    */
   public boolean isAmbiguousExcluded() {
@@ -199,13 +204,14 @@ public class PasswordGenerator {
   
   /**
    * Set ambiguous characters to be excluded.
-   * @param ambiguousExcluded
+   * @param ambiguousExcluded ambiguous chars to be excluded.
    */
   public void setAmbiguousExcluded(boolean ambiguousExcluded) {
     this.ambiguousExcluded = ambiguousExcluded;
   }
   
   /**
+   * Returns the set delimiter.
    * @return the delimiter
    */
   public String getDelimiter() {
@@ -214,12 +220,13 @@ public class PasswordGenerator {
   
   /**
    * Set the specified/default delimiter.
-   * @param delimiter
+   * @param delimiter set.
    */
   public void setDelimiter(String delimiter) {
     this.delimiter = delimiter;
   }
   /**
+   * Gets Random number generator.
    * @return the rng
    */
   protected Random getRng() {
@@ -227,7 +234,7 @@ public class PasswordGenerator {
   }
   /**
    * Set random number generator.
-   * @param rng
+   * @param rng set.
    */
   protected void setRng(Random rng) {
     this.rng = rng;
