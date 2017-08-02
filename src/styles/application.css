@@ -6,3 +6,7 @@
 StackPane VBox {
 	-fx-background-color: white;
 }
+
+#generate-password {
+	-fx-color: navy;
+}

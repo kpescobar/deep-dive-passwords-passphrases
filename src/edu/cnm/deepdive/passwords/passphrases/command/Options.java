@@ -1,7 +1,7 @@
 /**
  * 
  */
-package edu.cnm.deepdive.passwords.passphrases;
+package edu.cnm.deepdive.passwords.passphrases.command;
 
 import java.io.FileNotFoundException;
 import java.util.HashMap;

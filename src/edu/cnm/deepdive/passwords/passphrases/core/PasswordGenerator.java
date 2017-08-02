@@ -1,4 +1,4 @@
-package edu.cnm.deepdive.passwords.passphrases;
+package edu.cnm.deepdive.passwords.passphrases.core;
 
 import java.util.Random;
 
@@ -42,7 +42,6 @@ public class PasswordGenerator {
   }
   
   private void setupPool() {
-    if (pool == null) {
       StringBuilder builder = new StringBuilder();
       if (isLowerCaseIncluded()) {
         builder.append(LOWERCASE);
@@ -61,7 +60,6 @@ public class PasswordGenerator {
         work.replaceAll(AMBIGUOUS, "");
       }
       pool = work.toCharArray();
-    }
   }
   
   /**
@@ -106,7 +104,7 @@ public class PasswordGenerator {
    * 
    * @param maxLength maximum password length
    */
-  protected void setMaxLength(int maxLength) {
+  public void setMaxLength(int maxLength) {
     this.maxLength = maxLength;
   }
 
@@ -126,7 +124,7 @@ public class PasswordGenerator {
    * 
    * @param minLength minimum password length
    */
-  protected void setMinLength(int minLength) {
+  public void setMinLength(int minLength) {
     this.minLength = minLength;
   }
   

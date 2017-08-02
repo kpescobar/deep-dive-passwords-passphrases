@@ -1,7 +1,7 @@
 /**
  * 
  */
-package edu.cnm.deepdive.passwords.passphrases;
+package edu.cnm.deepdive.passwords.passphrases.core;
 
 import java.security.SecureRandom;
 import java.util.ArrayList;

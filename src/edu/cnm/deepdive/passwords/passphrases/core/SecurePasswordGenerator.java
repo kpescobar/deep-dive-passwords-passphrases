@@ -1,4 +1,4 @@
-package edu.cnm.deepdive.passwords.passphrases;
+package edu.cnm.deepdive.passwords.passphrases.core;
 
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;

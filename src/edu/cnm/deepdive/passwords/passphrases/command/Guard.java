@@ -1,10 +1,14 @@
 /**
  * Guard.java
  */
-package edu.cnm.deepdive.passwords.passphrases;
+package edu.cnm.deepdive.passwords.passphrases.command;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import edu.cnm.deepdive.passwords.passphrases.core.PassphraseGenerator;
+import edu.cnm.deepdive.passwords.passphrases.core.PasswordGenerator;
+import edu.cnm.deepdive.passwords.passphrases.core.SecurePasswordGenerator;
 
 /**
  * Program that generates random passwords/passphrases.
